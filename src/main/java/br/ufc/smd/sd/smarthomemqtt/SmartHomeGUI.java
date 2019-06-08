@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.smd.sd.smarthomemqtt;
 
 import java.awt.FlowLayout;
@@ -15,145 +10,138 @@ import javax.swing.JRadioButton;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 /**
- *
+ * Classe que cria a GUI e as instâncias dos equipamentos
  * @author Edvardo e Igor
  */
 public class SmartHomeGUI extends JFrame{
     private final JLabel lamp01Label;
+    private final JLabel lamp01Status;
     private final JRadioButton lamp01Ligar;
     private final JRadioButton lamp01Desligar;
-    private final JRadioButton lamp01MeiaLuz;
     private final ButtonGroup lamp01Grupo;
         
-    private final JLabel lamp02Label;
-    private final JRadioButton lamp02Ligar;    
-    private final JRadioButton lamp02Desligar;
-    private final JRadioButton lamp02MeiaLuz;
-    private final ButtonGroup lamp02Grupo;
- 
     private final SmartHomeEquip lamp01;
     private final SmartHomeClient lamp01Cliente;
     private final SmartHomeCallback lamp01Callback;
-
-    private final SmartHomeEquip lamp02;
-    private final SmartHomeClient lamp02Cliente;
-    private final SmartHomeCallback lamp02Callback;
     
+    private final JLabel tv01Label;
+    private final JRadioButton tv01Ligar;
+    private final JRadioButton tv01Desligar;
+    private final ButtonGroup tv01Grupo;
+        
+    private final SmartHomeEquip tv01;
+    private final SmartHomeClient tv01Cliente;
+    private final SmartHomeCallback tv01Callback;
+    
+    private final JLabel som01Label;
+    private final JRadioButton som01Ligar;
+    private final JRadioButton som01Desligar;
+    private final ButtonGroup som01Grupo;
+        
+    private final SmartHomeEquip som01;
+    private final SmartHomeClient som01Cliente;
+    private final SmartHomeCallback som01Callback;
+  
     public SmartHomeGUI() throws MqttException {
         
         super("SmartHomeGUI");
         
-        lamp01 = new SmartHomeEquip("lamp01", "desligado", "0%");
-        lamp01Cliente = new SmartHomeClient("lamp01");
+        lamp01 = new SmartHomeEquip("lamp01", "desligado");
         lamp01Callback = new SmartHomeCallback(lamp01);
+        lamp01Cliente = new SmartHomeClient("lamp01");
         lamp01Cliente.conectar();
         lamp01Cliente.subscrever(lamp01Callback);
-        
-        lamp02 = new SmartHomeEquip("lamp02", "desligado", "0%");
-        lamp02Cliente = new SmartHomeClient("lamp02");
-        lamp02Callback = new SmartHomeCallback(lamp02);
-        lamp02Cliente.conectar();
-        lamp02Cliente.subscrever(lamp02Callback);
-        
-        
+               
         setLayout(new FlowLayout());
         lamp01Label = new JLabel("Lâmpada 01");
-        add(lamp01Label);
-                
-        lamp01Ligar =  new JRadioButton("Ligar", true);
-        lamp01Desligar = new JRadioButton("Desligar", false);
-        lamp01MeiaLuz = new JRadioButton("Meia-Luz", false);
+        lamp01Status = new JLabel();
+        lamp01Ligar =  new JRadioButton("Ligar", false);
+        lamp01Desligar = new JRadioButton("Desligar", true);
+        add(lamp01Label);        
         add(lamp01Ligar);
-        add(lamp01MeiaLuz);
         add(lamp01Desligar);
+        add(lamp01Status);
         
         lamp01Grupo = new ButtonGroup();
         lamp01Grupo.add(lamp01Ligar);
-        lamp01Grupo.add(lamp01MeiaLuz);
         lamp01Grupo.add(lamp01Desligar);
         
-        lamp01Ligar.addItemListener(new Lamp01Handler(lamp01, "ligar"));
-        lamp01MeiaLuz.addItemListener(new Lamp01Handler(lamp01, "meia-luz"));
-        lamp01Desligar.addItemListener(new Lamp01Handler(lamp01, "desligar"));
+        lamp01Ligar.addItemListener(new EquipHandler(lamp01, lamp01Cliente, 
+                "ligar"));
+        lamp01Desligar.addItemListener(new EquipHandler(lamp01, lamp01Cliente, 
+                "desligar"));
         
-        lamp02Label = new JLabel("Lâmpada 02");
-        add(lamp02Label);
-        lamp02Ligar =  new JRadioButton("Ligar", true);
-        lamp02Desligar = new JRadioButton("Desligar", false);
-        lamp02MeiaLuz = new JRadioButton("Meia-Luz", false);
-        add(lamp02Ligar);
-        add(lamp02MeiaLuz);
-        add(lamp02Desligar);
+        tv01 = new SmartHomeEquip("TV01", "desligado");
+        tv01Callback = new SmartHomeCallback(tv01);
+        tv01Cliente = new SmartHomeClient("tv01");
+        tv01Cliente.conectar();
+        tv01Cliente.subscrever(tv01Callback);
+               
+        setLayout(new FlowLayout());
+        tv01Label = new JLabel("Televisão 01");
+        tv01Ligar =  new JRadioButton("Ligar", false);
+        tv01Desligar = new JRadioButton("Desligar", true);
+        add(tv01Label);        
+        add(tv01Ligar);
+        add(tv01Desligar);
         
-        lamp02Grupo = new ButtonGroup();
-        lamp02Grupo.add(lamp02Ligar);
-        lamp02Grupo.add(lamp02MeiaLuz);
-        lamp02Grupo.add(lamp02Desligar);
+        tv01Grupo = new ButtonGroup();
+        tv01Grupo.add(tv01Ligar);
+        tv01Grupo.add(tv01Desligar);
         
-        lamp02Ligar.addItemListener(new Lamp02Handler(lamp02, "ligar"));
-        lamp02MeiaLuz.addItemListener(new Lamp02Handler(lamp02, "meia-luz"));
-        lamp02Desligar.addItemListener(new Lamp02Handler(lamp02, "desligar"));
+        tv01Ligar.addItemListener(new EquipHandler(tv01, tv01Cliente, 
+                "ligar"));
+        tv01Desligar.addItemListener(new EquipHandler(tv01, tv01Cliente, 
+                "desligar"));
         
-        /*      
+        som01 = new SmartHomeEquip("som01", "desligado");
+        som01Callback = new SmartHomeCallback(som01);
+        som01Cliente = new SmartHomeClient("som01");
+        som01Cliente.conectar();
+        som01Cliente.subscrever(som01Callback);
+               
+        //setLayout(new FlowLayout());
+        som01Label = new JLabel("Sistema de Som 01");
+        som01Ligar =  new JRadioButton("Ligar", false);
+        som01Desligar = new JRadioButton("Desligar", true);
+        add(som01Label);        
+        add(som01Ligar);
+        add(som01Desligar);
         
-        SmartHomeEquip arCond = new SmartHomeEquip("arCond01", "desligado", "20ºC");
-        SmartHomeEquip TV = new SmartHomeEquip("TV01", "desligado", "canal 10");
+        som01Grupo = new ButtonGroup();
+        som01Grupo.add(som01Ligar);
+        som01Grupo.add(som01Desligar);
         
-        
-        SmartHomeClient arCondClient = new SmartHomeClient("arCond01");
-        SmartHomeClient TVClient = new SmartHomeClient("TV01");
-        
-        
-        SmartHomeCallback arCondCallback = new SmartHomeCallback(arCond);
-        SmartHomeCallback TVCallback = new SmartHomeCallback(TV);
-        
-        
-                
-        arCondClient.conectar();
-        arCondClient.subscrever(arCondCallback);
-        
-        TVClient.conectar();
-        TVClient.subscrever(TVCallback);
-
-*/
-    }
+        som01Ligar.addItemListener(new EquipHandler(som01, som01Cliente, 
+                "ligar"));
+        som01Desligar.addItemListener(new EquipHandler(som01, som01Cliente, 
+                "desligar"));
+       
+    } //fim do construtor
     
-    private class Lamp01Handler implements ItemListener{
+    private class EquipHandler implements ItemListener{
         
         SmartHomeEquip equip;
+        SmartHomeClient equipCliente;
         String mensagem;
 
-        public Lamp01Handler(SmartHomeEquip equip, String mensagem) {
+        public EquipHandler(SmartHomeEquip equip, SmartHomeClient equipCliente, 
+                String mensagem) {
             this.equip = equip;
+            this.equipCliente = equipCliente;
             this.mensagem = mensagem;
-        }
-        
-           
-       
+        } //fim do construtor
+
         @Override
         public void itemStateChanged(ItemEvent e) {
-            lamp01Cliente.publicarMensagem(mensagem);
-            
-        }
+            if (e.getStateChange() == ItemEvent.SELECTED){
+                System.out.println("Equipamento: " + equip.idEquip 
+                    + " Status atual: " + equip.status
+                    + " Comando: " + mensagem);
+                equipCliente.publicarMensagem(mensagem);
+            }
+        } //fim de itemStateChanged
         
-    }
-    
-    private class Lamp02Handler implements ItemListener{
+    } //fim de EquipHandler
 
-        private String mensagem;
-        private SmartHomeEquip equip;
-
-        public Lamp02Handler(SmartHomeEquip equip, String mensagem) {
-            this.equip = equip;
-            this.mensagem = mensagem;
-        }
-        
-        @Override
-        public void itemStateChanged(ItemEvent e) {
-            lamp02Cliente.publicarMensagem(mensagem);
-            
-        }
-        
-    }
-    
-}
+} //fim de SmartHomeEquip
