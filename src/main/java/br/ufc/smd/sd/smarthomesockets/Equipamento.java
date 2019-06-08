@@ -4,7 +4,7 @@ public class Equipamento {
 
     protected String id;
     protected String nome;
-    protected String valor;
+    protected int valor;
     protected String status;
 
     public String getId() {
@@ -31,11 +31,11 @@ public class Equipamento {
         this.status = status;
     }
 
-    public String getValor() {
+    public int getValor() {
         return valor;
     }
 
-    public void setValor(String valor) {
+    public void setValor(int valor) {
         this.valor = valor;
     }
 

@@ -2,7 +2,6 @@ package br.ufc.smd.sd.smarthomesockets;
 
 import javax.swing.*;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -32,7 +31,7 @@ public class Server {
 
                 msgCliente = entrada.readLine();
 
-                System.out.println("MUDANÇA DE STATUS: " + msgCliente);
+                System.out.println("MUDANÇA: " + msgCliente);
                 System.out.println("--------------------------------------");
                 entrada.close();
                 cliente.close();
@@ -62,7 +61,7 @@ public class Server {
     public static void inicializaGUI() {
         SmartHomeGUI smartHomeGUI = new SmartHomeGUI();
         smartHomeGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        smartHomeGUI.setSize(400, 400);
+        smartHomeGUI.setSize(800, 400);
         smartHomeGUI.setVisible(true);
     }
 
