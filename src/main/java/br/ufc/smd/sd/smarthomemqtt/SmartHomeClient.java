@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.smd.sd.smarthomemqtt;
 
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -14,7 +9,8 @@ import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 import org.eclipse.paho.client.mqttv3.MqttTopic;
 
 /**
- *
+ * Classe cliente para conectar, subescrever e publicar as mensagens no
+ * broker iot.eclipse.org
  * @author Edvardo e Igor
  */
 public class SmartHomeClient {

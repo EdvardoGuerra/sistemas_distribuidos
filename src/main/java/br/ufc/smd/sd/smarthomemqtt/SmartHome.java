@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.smd.sd.smarthomemqtt;
 
 import javax.swing.JFrame;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 /**
- *
- * @author Edvardo e Igo
+ * Classe inicial que chama a GUI
+ * @author Edvardo e Igor
  */
 public class SmartHome {
     
@@ -18,7 +13,7 @@ public class SmartHome {
         
         SmartHomeGUI smartHomeGUI = new SmartHomeGUI();
         smartHomeGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        smartHomeGUI.setSize(350, 200);
+        smartHomeGUI.setSize(300, 200);
         smartHomeGUI.setVisible(true);     
                 
     } //fim de main 

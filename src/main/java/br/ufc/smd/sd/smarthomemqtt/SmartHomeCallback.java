@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.smd.sd.smarthomemqtt;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
@@ -10,7 +5,7 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 /**
- *
+ * Classe tipo callback para ler as mensagens enviadas
  * @author Edvardo e Igor
  */
 public class SmartHomeCallback implements MqttCallback{
@@ -29,12 +24,13 @@ public class SmartHomeCallback implements MqttCallback{
     @Override
     public void messageArrived(String topico, MqttMessage mensagem) throws Exception {
         String msg = mensagem.toString();
-        System.out.println(msg);
+        System.out.println("Mensagem Recebida");
         smartHomeEquip.executar(msg);
     }
 
     @Override
     public void deliveryComplete(IMqttDeliveryToken imdt) {
+        System.out.println("Entrega completada");
     }
     
-}
+} //fim de SmartHomeCallback
