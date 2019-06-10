@@ -5,6 +5,8 @@
  */
 package br.ufc.smd.sd.smarthomemqtt;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author Edvardo e Igor
@@ -13,21 +15,25 @@ public class SmartHomeEquip {
     
     String idEquip;
     String status;
-   
-    public SmartHomeEquip(String idEquip, String status) {
+    JLabel equipStatus;
+    
+    public SmartHomeEquip(String idEquip, String status, JLabel equipStatus) {
         this.idEquip = idEquip;
         this.status = status;
+        this.equipStatus = equipStatus;
     } //fim do contrutor2
     
-    void executar(String msg) {
+    public void executar(String msg) {
         if (null == msg){
             this.status = "sem mensagem";
         } else switch (msg) {
             case "ligar":
-                this.status = "Ligado";
+                this.status = "ligado";
+                this.equipStatus.setText("Ligado");
                 break;
             case "desligar":
                 this.status = "desligado";
+                this.equipStatus.setText("Desligado");
                 break;
             default:
                 this.status = "deu merda";
@@ -36,7 +42,6 @@ public class SmartHomeEquip {
         
         System.out.println(this.idEquip + ": " + this.status);
         System.out.println();
-    }
-    
+    } //fim de executar
     
 } //fim de SmartHomeEquip

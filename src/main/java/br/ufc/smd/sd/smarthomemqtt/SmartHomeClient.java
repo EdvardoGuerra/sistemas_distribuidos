@@ -1,5 +1,6 @@
 package br.ufc.smd.sd.smarthomemqtt;
 
+import java.security.SecureRandom;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
@@ -13,8 +14,9 @@ import org.eclipse.paho.client.mqttv3.MqttTopic;
  * broker iot.eclipse.org
  * @author Edvardo e Igor
  */
-public class SmartHomeClient {
-    
+public class SmartHomeClient extends Thread{
+    SecureRandom random = new SecureRandom();   
+    int temp;
     String idEquip;
     String topico;
     String broker = "tcp://iot.eclipse.org:1883";
@@ -49,5 +51,21 @@ public class SmartHomeClient {
             e.printStackTrace();
         } //fim de try-catch
     } //fim de publicarMensagem
+
+    @Override
+    public void run() {
+       
+        while (true) {  
+            temp = 25 + random.nextInt(10);
+            
+            publicarMensagem(String.valueOf(temp));
+            try {
+                Thread.sleep(2000);
+            } catch (Exception e) {
+            } //fim de try-catch
+        } //fim de while
+        
+    }//fim de run
+    
     
 } //fim de SmartHomeClient

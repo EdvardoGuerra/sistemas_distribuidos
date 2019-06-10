@@ -13,7 +13,7 @@ public class SmartHome {
         
         SmartHomeGUI smartHomeGUI = new SmartHomeGUI();
         smartHomeGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        smartHomeGUI.setSize(300, 200);
+        smartHomeGUI.setSize(350, 200);
         smartHomeGUI.setVisible(true);     
                 
     } //fim de main 
